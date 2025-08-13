@@ -1,4 +1,5 @@
 import os
+from unittest.mock import MagicMock, patch
 
 import pytest
 from dotenv import load_dotenv
@@ -38,11 +39,31 @@ def test_async_mailer_initialization():
     assert str(async_mailer) == "AsyncMailer"
 
 
-@pytest.mark.asyncio
-async def test_async_mailer_integration_concurr():
-    await async_mailer.send_bulk(emails=[email] * 2, concurrency=2)
+# @pytest.mark.asyncio
+# async def test_async_mailer_integration_concurr():
+#     await async_mailer.send_bulk(emails=[email] * 2, concurrency=2)
+
+
+# @pytest.mark.asyncio
+# async def test_async_mailer_integration_sync():
+#     await async_mailer.send_bulk_sync(emails=[email])
 
 
 @pytest.mark.asyncio
 async def test_async_mailer_integration_sync():
-    await async_mailer.send_bulk_sync(emails=[email])
+    async_mailer = AsyncMailer()
+    with patch("smtplib.SMTP", autospec=True) as mock_smtp:
+        mock_server = MagicMock()
+        mock_smtp.return_value.__enter__.return_value = mock_server
+        await async_mailer.send_bulk_sync([email])
+        mock_server.send_message.assert_called_once()
+
+
+@pytest.mark.asyncio
+async def test_async_mailer_integration_concurr():
+    async_mailer = AsyncMailer()
+    with patch("smtplib.SMTP", autospec=True) as mock_smtp:
+        mock_server = MagicMock()
+        mock_smtp.return_value.__enter__.return_value = mock_server
+        await async_mailer.send_bulk([email], concurrency=5)
+        mock_server.send_message.assert_called_once()
