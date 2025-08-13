@@ -1,5 +1,11 @@
 # BMailer
 
+[![image](https://img.shields.io/pypi/v/bmailer.svg)](https://pypi.python.org/pypi/bmailer)
+[![image](https://img.shields.io/pypi/l/bmailer.svg)](https://pypi.python.org/pypi/bmailer)
+[![image](https://img.shields.io/pypi/pyversions/bmailer.svg)](https://pypi.python.org/pypi/bmailer)
+[![Actions status](https://github.com/duytanisme/bmailer/actions/workflows/test-and-release.yaml/badge.svg)](https://github.com/duytanisme/bmailer/actions)
+[![codecov](https://codecov.io/gh/duytanisme/bmailer/branch/main/graph/badge.svg)](https://codecov.io/gh/duytanisme/bmailer)
+
 BMailer is an asynchronous email sender built with Python, designed to send bulk emails efficiently using SMTP. It supports templating for email bodies and allows for concurrent sending of multiple emails.
 
 ## Example Usage

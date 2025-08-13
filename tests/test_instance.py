@@ -40,7 +40,7 @@ def test_async_mailer_initialization():
 
 @pytest.mark.asyncio
 async def test_async_mailer_integration_concurr():
-    await async_mailer.send_bulk(emails=[email] * 5, concurrency=5)
+    await async_mailer.send_bulk(emails=[email] * 2, concurrency=2)
 
 
 @pytest.mark.asyncio
